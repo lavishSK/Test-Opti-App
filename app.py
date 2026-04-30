@@ -84,7 +84,7 @@ Generate specific, data-driven recommendations referencing actual numbers from t
             st.write("📊 Analyzing reports & generating recommendations...")
 
             response = client.models.generate_content(
-                model='gemini-1.5-pro',
+                model='gemini-2.5-pro',
                 contents=user_msg,
                 config=types.GenerateContentConfig(
                     system_instruction=system_instruction,
