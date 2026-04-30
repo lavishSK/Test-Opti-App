@@ -1,7 +1,8 @@
 import streamlit as st
-import google.generativeai as genai
 import json
 import os
+from google import genai
+from google.genai import types
 from utils.data_parser import parse_uploaded_files, build_report_schema
 from utils.presets import PRESETS, KPI_LABELS, DSP_LABELS
 from utils.display import render_recommendations, render_data_preview, render_insights_panel
@@ -230,10 +231,10 @@ with tab_raw:
 # CORE ANALYSIS FUNCTION
 # ─────────────────────────────────────────────────────────────────────────────
 def run_analysis(schema: str, kpi: str, dsp: str, prompt: str):
-    """Call Gemini 1.5 Pro, enforce JSON structure, and stream progress."""
+    """Call Gemini 1.5 Pro using the new google-genai SDK, enforce JSON structure."""
     
-    # 1. Configure the API Key
-    genai.configure(api_key=st.session_state.api_key)
+    # 1. Initialize the new client
+    client = genai.Client(api_key=st.session_state.api_key)
 
     system_instruction = """You are a senior programmatic advertising optimizer specializing in automotive LMA campaigns on TTD, CM360, and DV360. 12+ years in automotive digital media.
     You have REAL campaign data in the user message. Reference specific sites, zip codes, spend amounts, and benchmarks from the actual reports.
@@ -274,25 +275,25 @@ Generate specific, data-driven recommendations referencing actual numbers from t
 
     try:
         with status:
-            st.write("📡 Connecting to Gemini 1.5 Pro...")
+            st.write("📡 Connecting to Gemini API...")
             progress.progress(20, "Connecting...")
-
-            # 2. Initialize the model with JSON configuration
-            model = genai.GenerativeModel(
-                model_name="gemini-1.5-pro",
-                system_instruction=system_instruction,
-                generation_config={"response_mime_type": "application/json"}
-            )
 
             progress.progress(50, "Crunching campaign data...")
             st.write("📊 Analyzing reports & generating recommendations...")
 
-            # 3. Call the API
-            response = model.generate_content(user_msg)
+            # 2. Call the API using the new syntax
+            response = client.models.generate_content(
+                model='gemini-1.5-pro',
+                contents=user_msg,
+                config=types.GenerateContentConfig(
+                    system_instruction=system_instruction,
+                    response_mime_type="application/json",
+                ),
+            )
 
             st.session_state.raw_response = response.text
             
-            # 4. Parse the clean JSON response
+            # 3. Parse the clean JSON response
             parsed = json.loads(response.text)
             st.session_state.last_result = parsed
 
