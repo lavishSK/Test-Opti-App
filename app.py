@@ -80,15 +80,10 @@ with st.sidebar:
         st.session_state.report_data = {"demo": True, "schema": DEMO_SCHEMA, "stats": DEMO_STATS}
         st.info("📦 5 demo reports loaded\nGMC / Buick LMA Campaign")
 
-    # Quick presets
+  # Quick presets
     st.divider()
     st.markdown("### ⚡ Quick Presets")
-    preset_choice = st.selectbox(
-        "Load preset prompt",
-        ["— Select —", "🚫 OOG Zip Exclusions", "👁 Low Viewability Sites",
-         "💰 Bid Optimization", "♻ TTD Spend Waste", "🎯 Full Campaign Audit"],
-        label_visibility="collapsed",
-    )
+    
     preset_keys = {
         "🚫 OOG Zip Exclusions": "oog",
         "👁 Low Viewability Sites": "viewability",
@@ -96,11 +91,24 @@ with st.sidebar:
         "♻ TTD Spend Waste": "ttd_waste",
         "🎯 Full Campaign Audit": "full",
     }
-    if preset_choice != "— Select —":
-        p = PRESETS[preset_keys[preset_choice]]
-        st.session_state["preset_kpi"] = p["kpi"]
-        st.session_state["preset_prompt"] = p["prompt"]
-        st.rerun()
+
+    # 1. Create a callback function to handle state safely
+    def handle_preset_change():
+        choice = st.session_state.preset_selector
+        if choice != "— Select —":
+            p = PRESETS[preset_keys[choice]]
+            st.session_state["preset_kpi"] = p["kpi"]
+            st.session_state["preset_prompt"] = p["prompt"]
+
+    # 2. Add the key and the on_change callback to the selectbox
+    st.selectbox(
+        "Load preset prompt",
+        ["— Select —", "🚫 OOG Zip Exclusions", "👁 Low Viewability Sites",
+         "💰 Bid Optimization", "♻ TTD Spend Waste", "🎯 Full Campaign Audit"],
+        label_visibility="collapsed",
+        key="preset_selector",
+        on_change=handle_preset_change
+    )
 
 
 # ─────────────────────────────────────────────────────────────────────────────
