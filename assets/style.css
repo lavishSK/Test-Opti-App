@@ -1,0 +1,268 @@
+/* Programmatic AI Optimizer — Custom Streamlit Styling */
+
+/* Import fonts */
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap');
+
+/* Root variables */
+:root {
+    --primary-color: #f5a623;
+    --primary-dark: #d68e0f;
+    --secondary-color: #2dd4bf;
+    --bg-dark: #0d0f14;
+    --bg-surface: #141720;
+    --bg-surface-2: #1c2030;
+    --border-color: #2a3050;
+    --text-primary: #e8eaf0;
+    --text-muted: #8892aa;
+    --success: #4ade80;
+    --warning: #fb923c;
+    --error: #f87171;
+}
+
+/* Global overrides */
+.stApp {
+    background: var(--bg-dark);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* Sidebar styling */
+section[data-testid="stSidebar"] {
+    background: var(--bg-surface);
+    border-right: 1px solid var(--border-color);
+}
+
+section[data-testid="stSidebar"] .stMarkdown {
+    color: var(--text-primary);
+}
+
+section[data-testid="stSidebar"] h2 {
+    color: var(--primary-color);
+    font-weight: 700;
+    font-size: 1.3rem;
+}
+
+/* Tabs */
+.stTabs [data-baseweb="tab-list"] {
+    gap: 8px;
+    background: var(--bg-surface);
+    padding: 0 1rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.stTabs [data-baseweb="tab"] {
+    height: auto;
+    padding: 0.75rem 1rem;
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid transparent;
+    color: var(--text-muted);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.stTabs [aria-selected="true"] {
+    background: transparent;
+    color: var(--primary-color);
+    border-bottom-color: var(--primary-color);
+}
+
+/* Buttons */
+.stButton > button {
+    background: var(--primary-color);
+    color: #000;
+    border: none;
+    border-radius: 8px;
+    padding: 0.6rem 1.2rem;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    transition: background 0.2s;
+}
+
+.stButton > button:hover {
+    background: var(--primary-dark);
+}
+
+.stButton > button:disabled {
+    background: var(--bg-surface-2);
+    color: var(--text-muted);
+}
+
+/* Text inputs and text areas */
+.stTextInput > div > div > input,
+.stTextArea > div > div > textarea,
+.stSelectbox > div > div > div {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    color: var(--text-primary);
+    font-family: 'Inter', sans-serif;
+}
+
+.stTextArea > div > div > textarea {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.9rem;
+}
+
+.stTextInput > div > div > input:focus,
+.stTextArea > div > div > textarea:focus,
+.stSelectbox > div > div > div:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 1px var(--primary-color);
+}
+
+/* Metrics */
+.stMetric {
+    background: var(--bg-surface);
+    padding: 1rem;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+}
+
+.stMetric label {
+    color: var(--text-muted) !important;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 600;
+}
+
+.stMetric [data-testid="stMetricValue"] {
+    color: var(--primary-color);
+    font-weight: 700;
+    font-family: 'IBM Plex Mono', monospace;
+}
+
+/* Expander */
+.streamlit-expanderHeader {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+/* Dataframes */
+.stDataFrame {
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+/* Info/warning/error boxes */
+.stAlert {
+    border-radius: 8px;
+    border: 1px solid;
+    font-size: 0.9rem;
+}
+
+div[data-testid="stInfo"] {
+    background: rgba(45, 212, 191, 0.1);
+    border-color: rgba(45, 212, 191, 0.3);
+    color: var(--secondary-color);
+}
+
+div[data-testid="stWarning"] {
+    background: rgba(251, 146, 60, 0.1);
+    border-color: rgba(251, 146, 60, 0.3);
+    color: var(--warning);
+}
+
+div[data-testid="stError"] {
+    background: rgba(248, 113, 113, 0.1);
+    border-color: rgba(248, 113, 113, 0.3);
+    color: var(--error);
+}
+
+div[data-testid="stSuccess"] {
+    background: rgba(74, 222, 128, 0.1);
+    border-color: rgba(74, 222, 128, 0.3);
+    color: var(--success);
+}
+
+/* Code blocks */
+.stCodeBlock {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+}
+
+code {
+    background: var(--bg-surface-2);
+    color: var(--secondary-color);
+    padding: 0.15rem 0.4rem;
+    border-radius: 4px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.85em;
+}
+
+/* File uploader */
+section[data-testid="stFileUploader"] {
+    border: 1px dashed var(--border-color);
+    border-radius: 8px;
+    background: var(--bg-dark);
+}
+
+section[data-testid="stFileUploader"]:hover {
+    border-color: var(--primary-color);
+}
+
+/* Divider */
+hr {
+    border-color: var(--border-color);
+}
+
+/* Progress bar */
+.stProgress > div > div > div {
+    background: var(--primary-color);
+}
+
+/* Status container */
+.stStatus {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+}
+
+/* Selectbox */
+.stSelectbox label {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* Container borders */
+div[data-testid="stVerticalBlock"] > div[data-testid="stVerticalBlock"] > div[style*="border"] {
+    border-color: var(--border-color) !important;
+    background: var(--bg-surface);
+    border-radius: 8px;
+}
+
+/* Headers */
+h1, h2, h3, h4 {
+    color: var(--text-primary);
+}
+
+h3 {
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+}
+
+/* Caption text */
+.stCaption {
+    color: var(--text-muted);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.8rem;
+}
+
+/* Download button */
+.stDownloadButton > button {
+    background: var(--secondary-color);
+    color: #000;
+}
+
+.stDownloadButton > button:hover {
+    background: #14b8a6;
+}
