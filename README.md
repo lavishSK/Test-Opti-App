@@ -1,7 +1,3 @@
-### Modify Report Parser
-
-Edit `utils/data_parser.py` → add new `_detect_report_type()` logic or new parser function.
-
 ---
 
 ## 🚧 Roadmap
